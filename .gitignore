@@ -7,3 +7,5 @@ vendor/
 .DS_Store
 .swagger-codegen-ignore
 .swagger-codegen/
+
+oslo
