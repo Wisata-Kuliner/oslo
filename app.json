@@ -1,12 +1,11 @@
 {
-  "name": "Start on Heroku: Go",
-  "description": "Go Getting Started Example App",
+  "name": "Ready Start on Heroku: and Go!",
+  "description": "Golang Heroku Gamers",
   "keywords": [
-    "getting-started",
+    "heroku",
     "go",
-    "sample",
-    "example"
+    "gamers"
   ],
-  "website": "http://github.com/heroku/go-getting-started",
-  "repository": "http://github.com/heroku/go-getting-started"
+  "website": "http://github.com/Wisata-Kuliner/oslo",
+  "repository": "http://github.com/Wisata-Kuliner/oslo"
 }
