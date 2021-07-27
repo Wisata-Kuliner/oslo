@@ -18,7 +18,12 @@ func NewRouter(port string) *gin.Engine {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
-	router.GET("/test", handlers.Test)
+	router.GET("/players", handlers.Test)
+	router.GET("/posts", handlers.GetAllPosts)
+	router.GET("/rooms", handlers.GetAllRooms)
+	router.GET("/static", handlers.GetAllStatics)
+	router.GET("/teams", handlers.GetAllTeams)
+	router.GET("/users", handlers.GetAllUsers)
 
 	return router
 }
