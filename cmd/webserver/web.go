@@ -24,6 +24,7 @@ func NewRouter(port string) *gin.Engine {
 	router.GET("/static", handlers.GetAllStatics)
 	router.GET("/teams", handlers.GetAllTeams)
 	router.GET("/users", handlers.GetAllUsers)
+	router.GET("/cloudkit", handlers.Echo)
 
 	return router
 }

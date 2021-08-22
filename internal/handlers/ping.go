@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/Wisata-Kuliner/oslo/internal/repository"
+	"github.com/Wisata-Kuliner/oslo/internal/usecases"
 	utils "github.com/Wisata-Kuliner/oslo/internal/utils"
 	"github.com/gin-gonic/gin"
 )
@@ -43,4 +44,13 @@ func Test(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, response)
+}
+
+func Echo(c *gin.Context) {
+	response, err := usecases.GetUser()
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, string(response))
 }
