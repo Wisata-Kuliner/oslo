@@ -25,5 +25,19 @@ func NewRouter(port string) *gin.Engine {
 	router.GET("/teams", handlers.GetAllTeams)
 	router.GET("/users", handlers.GetAllUsers)
 
+	router.POST("/players", handlers.Prepare)
+	router.POST("/posts", handlers.AddPosts)
+	router.POST("/rooms", handlers.AddRooms)
+	router.POST("/static", handlers.AddStatic)
+	router.POST("/teams", handlers.AddTeams)
+	router.POST("/users", handlers.AddUsers)
+
+	router.PUT("/players/:id", handlers.Execute)
+	router.PUT("/posts/:id", handlers.UpdatePosts)
+	router.PUT("/rooms/:id", handlers.UpdateRooms)
+	router.PUT("/static/:id", handlers.UpdateStatic)
+	router.PUT("/teams/:id", handlers.UpdateTeams)
+	router.PUT("/users/:id", handlers.UpdateUsers)
+
 	return router
 }

@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"context"
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/Wisata-Kuliner/oslo/internal/repository"
@@ -38,6 +40,70 @@ func Test(c *gin.Context) {
 	response, err := repository.GetPlayers(ctx, client)
 	if err != nil {
 		// fmt.Fprintf(w, err.Error())
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, response)
+}
+
+func Prepare(c *gin.Context) {
+
+	ctx := context.Background()
+	client, err := utils.CreateClient(ctx)
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	defer client.Close()
+
+	jsonData, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		// Handle error
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	body := make(map[string]interface{})
+	err = json.Unmarshal(jsonData, &body)
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	response, err := repository.PostPlayers(ctx, client, body)
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, response)
+}
+
+func Execute(c *gin.Context) {
+
+	ctx := context.Background()
+	client, err := utils.CreateClient(ctx)
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	defer client.Close()
+
+	jsonData, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		// Handle error
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	body := make(map[string]interface{})
+	err = json.Unmarshal(jsonData, &body)
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	response, err := repository.PutPlayers(ctx, client, c.Param("id"), body)
+	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
