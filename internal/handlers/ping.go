@@ -110,3 +110,19 @@ func Execute(c *gin.Context) {
 
 	c.JSON(http.StatusOK, response)
 }
+
+func Download(c *gin.Context) {
+	b, err := utils.ReadServiceAccount()
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	response, err := repository.DownloadData(b)
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.Data(http.StatusOK, "application/octet-stream", response)
+}

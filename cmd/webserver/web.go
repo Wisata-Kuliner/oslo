@@ -25,6 +25,8 @@ func NewRouter(port string) *gin.Engine {
 	router.GET("/teams", handlers.GetAllTeams)
 	router.GET("/users", handlers.GetAllUsers)
 
+	router.GET("/storage", handlers.Download)
+
 	router.POST("/players", handlers.Prepare)
 	router.POST("/posts", handlers.AddPosts)
 	router.POST("/rooms", handlers.AddRooms)

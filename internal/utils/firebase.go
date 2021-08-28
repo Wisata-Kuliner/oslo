@@ -58,6 +58,25 @@ func CreateClient(ctx context.Context) (*firestore.Client, error) {
 	// Sets your Google Cloud Platform project ID.
 	projectID := os.Getenv("FIREBASE_MABAR_PROJECT_ID")
 
+	b, err := ReadServiceAccount()
+	if err != nil {
+		return nil, err
+	}
+
+	// fmt.Println(string(b))
+	opt := option.WithCredentialsJSON([]byte(b))
+
+	client, err := firestore.NewClient(ctx, projectID, opt)
+	if err != nil {
+		// log.Fatalf("Failed to create client: %v", err)
+		return nil, fmt.Errorf("error initializing app: %v", err)
+	}
+	// Close client when done with
+	// defer client.Close()
+	return client, nil
+}
+
+func ReadServiceAccount() ([]byte, error) {
 	serviceAccount := &Config{
 		ConfigType:   os.Getenv("FIREBASE_MABAR_TYPE"),
 		ProjectId:    os.Getenv("FIREBASE_MABAR_PROJECT_ID"),
@@ -75,15 +94,5 @@ func CreateClient(ctx context.Context) (*firestore.Client, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error initializing app: %v", err)
 	}
-	// fmt.Println(string(b))
-	opt := option.WithCredentialsJSON([]byte(b))
-
-	client, err := firestore.NewClient(ctx, projectID, opt)
-	if err != nil {
-		// log.Fatalf("Failed to create client: %v", err)
-		return nil, fmt.Errorf("error initializing app: %v", err)
-	}
-	// Close client when done with
-	// defer client.Close()
-	return client, nil
+	return b, nil
 }
